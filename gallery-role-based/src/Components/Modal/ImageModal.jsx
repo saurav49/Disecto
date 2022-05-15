@@ -6,7 +6,7 @@ const ImageModal = ({ previewImages, setPreviewImages, setShowImageModal }) => {
   };
   return (
     <div className="w-screen h-screen fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-slate-900/80 overflow-auto">
-      <div className="flex items-center justify-center flex-col w-[90%] py-2 bg-white text-slate-900 rounded-md shadow-md py-8 px-4 absolute">
+      <div className="flex items-center justify-center flex-col w-[90%] py-2 bg-white text-slate-900 rounded-md shadow-md py-8 px-4 absolute overflow-auto">
         <h2 className="text-3xl text-slate-600 mb-6">Image Preview</h2>
         <div className="flex items-center justify-around flex-wrap">
           {Array.isArray(previewImages) &&
@@ -16,7 +16,7 @@ const ImageModal = ({ previewImages, setPreviewImages, setShowImageModal }) => {
                 <img
                   src={img}
                   alt="preview_profile"
-                  className="w-[280px] rounded-lg m-2 border"
+                  className="w-[280px] rounded-lg m-1"
                   key={idx}
                 />
               );

@@ -41,11 +41,13 @@ const CreateCollectionModal = ({ setShowModal }) => {
   };
 
   const handleInputValidation = () => {
+    let isError = false;
     if (name.length === 0) {
       setError((prevState) => ({
         ...prevState,
         nameError: "Name field cannot be empty",
       }));
+      isError = true;
     } else {
       setError((prevState) => ({
         ...prevState,
@@ -58,6 +60,7 @@ const CreateCollectionModal = ({ setShowModal }) => {
         ...prevState,
         descError: "Description field cannot be empty",
       }));
+      isError = true;
     } else {
       setError((prevState) => ({
         ...prevState,
@@ -70,17 +73,20 @@ const CreateCollectionModal = ({ setShowModal }) => {
         ...prevState,
         imageError: "You have not selected any image",
       }));
+      isError = true;
     } else {
       setError((prevState) => ({
         ...prevState,
         imageError: "",
       }));
     }
+
+    return isError;
   };
 
   const handleCollection = async () => {
-    handleInputValidation();
-    if (error.nameError || error.descError || error.imageError) {
+    const isError = handleInputValidation();
+    if (isError) {
       return;
     }
     try {

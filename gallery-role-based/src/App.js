@@ -1,11 +1,25 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CreateCollectionModal } from "./Components/index";
 import { Routes, Route } from "react-router-dom";
-import { CollectionList, CollectionCardDetail } from "./Components/index";
+import {
+  CollectionList,
+  CollectionCardDetail,
+} from "./features/collection/index";
+import { useDispatch } from "react-redux";
+import {
+  toggleCollectionLoader,
+  fetchAllCollection,
+} from "./features/collection/collectionSlice";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(toggleCollectionLoader("TRUE"));
+    dispatch(fetchAllCollection());
+  }, []);
 
   return (
     <div className="App">
