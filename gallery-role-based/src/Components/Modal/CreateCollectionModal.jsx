@@ -106,7 +106,6 @@ const CreateCollectionModal = ({ setShowModal }) => {
       setLoading(false);
       console.log(error);
     }
-    console.log({ name, description, previewImages });
   };
 
   return (

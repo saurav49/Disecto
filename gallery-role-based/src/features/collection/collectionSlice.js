@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   getAllCollection,
   removeCollectionFromDb,
@@ -141,6 +141,9 @@ export const collectionSlice = createSlice({
             ? { ...action.payload.updatedDoc }
             : { ...collection }
         );
+        state.selectedCollection = state.allCollection.find(
+          (collection) => collection._id === action.payload.id
+        );
         localStorage.setItem(
           "selected__collection",
           JSON.stringify(
@@ -163,7 +166,6 @@ export const collectionSlice = createSlice({
     [removeImageFromCollection.fulfilled]: (state, action) => {
       state.status = "fulfilled";
       if (action.payload && action.payload.success) {
-        console.log(current(state));
         state.allCollection = state.allCollection.map((collection) =>
           collection._id === action.payload.cId
             ? {
@@ -175,7 +177,9 @@ export const collectionSlice = createSlice({
             : { ...collection }
         );
       }
-      console.log(current(state));
+      state.selectedCollection = state.allCollection.find(
+        (collection) => collection._id === action.payload.cId
+      );
       localStorage.setItem(
         "selected__collection",
         JSON.stringify(
@@ -197,7 +201,6 @@ export const collectionSlice = createSlice({
     [addImageToCollection.fulfilled]: (state, action) => {
       state.status = "fulfilled";
       if (action.payload && action.payload.success) {
-        console.log(current(state.allCollection));
         state.allCollection = state.allCollection.map((collection) =>
           collection._id === action.payload.id
             ? {
@@ -205,8 +208,10 @@ export const collectionSlice = createSlice({
               }
             : { ...collection }
         );
-        console.log(current(state));
       }
+      state.selectedCollection = state.allCollection.find(
+        (collection) => collection._id === action.payload.id
+      );
       localStorage.setItem(
         "selected__collection",
         JSON.stringify(
