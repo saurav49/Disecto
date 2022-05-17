@@ -51,6 +51,16 @@ export const authSlice = createSlice({
     handleSelectedRole: (state, action) => {
       return { ...state, userSelectedRole: action.payload };
     },
+    handleUserLogout: (state) => {
+      sessionStorage.removeItem("disecto__token");
+      sessionStorage.removeItem("current__user__roles");
+      return {
+        ...state,
+        userInfo: {},
+        userSelectedRole: "",
+        accessToken: "",
+      };
+    },
   },
   extraReducers: {
     [signUpUser.pending]: (state) => {
@@ -115,5 +125,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { toggleAuthLoader, handleSelectedRole } = authSlice.actions;
+export const { toggleAuthLoader, handleSelectedRole, handleUserLogout } =
+  authSlice.actions;
 export default authSlice.reducer;

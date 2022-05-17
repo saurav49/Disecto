@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-
+import { handleUserLogout } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
 const BrandIcon = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -17,12 +18,17 @@ const BrandIcon = (props) => (
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   let token;
 
   if (sessionStorage.getItem("disecto__token") !== "undefined") {
     token = JSON.parse(sessionStorage.getItem("disecto__token"));
   }
 
+  const handleLogout = () => {
+    dispatch(handleUserLogout());
+    navigate("/login");
+  };
   return (
     <>
       <div className="w-full flex md:flex-row flex-col items-center justify-between py-4 px-1 bg-slate-800">
@@ -48,7 +54,10 @@ const Navbar = () => {
             All collection
           </button>
           {token && (
-            <button className="ml-4 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 focus:border-b-0 rounded">
+            <button
+              onClick={handleLogout}
+              className="ml-4 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 focus:border-b-0 rounded"
+            >
               Logout
             </button>
           )}
