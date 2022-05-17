@@ -15,6 +15,7 @@ const CollectionList = () => {
   useEffect(() => {
     dispatch(toggleCollectionLoader("TRUE"));
     dispatch(fetchAllCollection());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Oval } from "react-loader-spinner";
 import { AiFillEye, AiTwotoneEyeInvisible } from "../../../Icons/Icons";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [err, setError] = useState("");
-  const { userInfo, authLoader } = useSelector((state) => state.auth);
+  const { authLoader } = useSelector((state) => state.auth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
