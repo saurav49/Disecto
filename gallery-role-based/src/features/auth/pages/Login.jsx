@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Oval } from "react-loader-spinner";
 import { AiFillEye, AiTwotoneEyeInvisible } from "../../../Icons/Icons";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import styles from "./auth.module.css";
 import { useSelector } from "react-redux";
 import { validateEmail, validatePassword } from "../../../utils";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../authSlice";
+import { loginUser, toggleAuthLoader } from "../authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [err, setError] = useState("");
-  const { userSelectedRole } = useSelector((state) => state.auth);
+  const { userInfo, authLoader } = useSelector((state) => state.auth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,13 +27,12 @@ const Login = () => {
       );
 
     setError("");
+    dispatch(toggleAuthLoader("TRUE"));
     dispatch(loginUser({ email, password }));
 
     setEmail("");
     setPassword("");
   };
-
-  console.log({ userSelectedRole });
 
   return (
     <div className={styles.signupPage}>
@@ -80,7 +79,7 @@ const Login = () => {
             type="submit"
             className="bg-slate-500 hover:bg-slate-400 text-white font-bold py-3 px-10 border-b-4 mb-5 border-slate-700 hover:border-slate-500 rounded uppercase"
           >
-            {false ? (
+            {authLoader ? (
               <Oval color="#fff" height={20} width={70} />
             ) : (
               <span>log in</span>

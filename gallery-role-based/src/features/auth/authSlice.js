@@ -4,9 +4,9 @@ import { handleUserSignUp, handleUserLogin } from "../../services/auth";
 const initialState = {
   status: "idle",
   userInfo: {},
-  currentRole: "",
   userSelectedRole: "",
   authLoader: false,
+  accessToken: "",
 };
 
 export const signUpUser = createAsyncThunk(
@@ -63,16 +63,18 @@ export const authSlice = createSlice({
           name: action.payload.savedUser.name,
           username: action.payload.savedUser.username,
           email: action.payload.savedUser.email,
+          roles: action.payload.savedUser.roles,
         };
-        state.currentRole = action.payload.savedUser.role;
-        localStorage.setItem(
-          "current__role",
+        state.accessToken = action.payload.savedUser.token;
+        sessionStorage.setItem(
+          "current__user__roles",
           JSON.stringify(action.payload.savedUser.role)
         );
-        localStorage.setItem(
+        sessionStorage.setItem(
           "disecto__token",
           JSON.stringify(action.payload.savedUser.token)
         );
+        alert("Sign up successful");
       }
       state.authLoader = false;
     },
@@ -91,16 +93,18 @@ export const authSlice = createSlice({
           name: action.payload.savedUser.name,
           username: action.payload.savedUser.username,
           email: action.payload.savedUser.email,
+          roles: action.payload.savedUser.roles,
         };
-        state.currentRole = action.payload.savedUser.role;
-        localStorage.setItem(
-          "current__role",
-          JSON.stringify(action.payload.savedUser.role)
+        state.accessToken = action.payload.savedUser.token;
+        sessionStorage.setItem(
+          "current__user__roles",
+          JSON.stringify(action.payload.savedUser.roles)
         );
-        localStorage.setItem(
+        sessionStorage.setItem(
           "disecto__token",
           JSON.stringify(action.payload.savedUser.token)
         );
+        alert("Login successful");
       }
       state.authLoader = false;
     },

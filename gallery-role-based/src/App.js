@@ -1,6 +1,11 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { CreateCollectionModal } from "./Components/index";
+import {
+  CreateCollectionModal,
+  Navbar,
+  PrivateRoute,
+  Unauthorized,
+} from "./Components/index";
 import { Routes, Route } from "react-router-dom";
 import {
   CollectionList,
@@ -14,11 +19,13 @@ import {
 import { useNavigate } from "react-router-dom";
 import { handleSelectedRole } from "./features/auth/authSlice";
 import { Login, Signup } from "./features/auth/index";
+import { ROLES } from "./utils";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(toggleCollectionLoader("TRUE"));
     dispatch(fetchAllCollection());
@@ -33,7 +40,12 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar />
+
       <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
         <Route
           path="/"
           element={
@@ -53,26 +65,30 @@ function App() {
             </div>
           }
         />
+        <Route element={<PrivateRoute allowdRoles={[ROLES.admin]} />}>
+          <Route
+            path="/createcollection"
+            element={
+              <div className="w-screen h-[83.5vh] flex items-center justify-center">
+                <button
+                  className="bg-slate-500 hover:bg-slate-400 text-white text-2xl font-bold py-4 px-8 border-b-4 border-slate-700 hover:border-slate-500 focus:border-b-0 rounded"
+                  onClick={() => setShowModal((prevValue) => !prevValue)}
+                >
+                  <span>Create Collection</span>
+                </button>
+                {showModal && (
+                  <CreateCollectionModal setShowModal={setShowModal} />
+                )}
+              </div>
+            }
+          />
+        </Route>
         <Route
-          path="/createcollection"
-          element={
-            <>
-              <button
-                className="bg-slate-500 hover:bg-slate-400 text-white font-bold py-2 px-6 border-b-4 border-slate-700 hover:border-slate-500 focus:border-b-0 rounded"
-                onClick={() => setShowModal((prevValue) => !prevValue)}
-              >
-                <span>Create Collection</span>
-              </button>
-              {showModal && (
-                <CreateCollectionModal setShowModal={setShowModal} />
-              )}
-            </>
-          }
-        />
-        <Route path="/collections" element={<CollectionList />} />
-        <Route path="/collection/:id" element={<CollectionCardDetail />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+          element={<PrivateRoute allowdRoles={[ROLES.admin, ROLES.user]} />}
+        >
+          <Route path="/collections" element={<CollectionList />} />
+          <Route path="/collection/:id" element={<CollectionCardDetail />} />
+        </Route>
       </Routes>
     </div>
   );

@@ -6,6 +6,11 @@ const cld = new Cloudinary({
   },
 });
 
+const ROLES = {
+  user: 2001,
+  admin: 5150,
+};
+
 const validateEmail = (email) => {
   const validEmailRegex =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -23,4 +28,4 @@ const isMatch = (password, confirmPassword) => {
   return password === confirmPassword ? true : false;
 };
 
-export { cld, validateEmail, validatePassword, isMatch };
+export { cld, validateEmail, validatePassword, isMatch, ROLES };

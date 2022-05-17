@@ -1,7 +1,31 @@
-import React from "react";
+import { useLocation, Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const PrivateRoute = () => {
-  return <div>PrivateRoute</div>;
+const PrivateRoute = ({ allowdRoles }) => {
+  const location = useLocation();
+  let { userInfo, accessToken } = useSelector((state) => state.auth);
+
+  if (
+    !accessToken &&
+    sessionStorage.getItem("disecto__token") !== "undefined"
+  ) {
+    accessToken = JSON.parse(sessionStorage.getItem("disecto__token"));
+  }
+
+  if (
+    userInfo.hasOwnProperty("roles") &&
+    sessionStorage.getItem("current__user__roles") !== "undefined"
+  ) {
+    userInfo = JSON.parse(sessionStorage.getItem("disecto__token"));
+  }
+
+  return userInfo?.roles?.find((role) => allowdRoles?.includes(role)) ? (
+    <Outlet />
+  ) : userInfo?.email ? (
+    <Navigate to="/unauthorized" state={{ from: location }} replace />
+  ) : (
+    <Navigate to="/login" state={{ from: location }} replace />
+  );
 };
 
 export { PrivateRoute };
