@@ -4,7 +4,6 @@ import { AiFillEye, AiTwotoneEyeInvisible } from "../../../Icons/Icons";
 import { useNavigate } from "react-router-dom";
 import styles from "./auth.module.css";
 import { useSelector } from "react-redux";
-import { validateEmail, validatePassword } from "../../../utils";
 import { useDispatch } from "react-redux";
 import { loginUser, toggleAuthLoader } from "../authSlice";
 
@@ -20,11 +19,8 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!validateEmail(email)) return setError("Enter valid email id");
-    if (!validatePassword(password))
-      return setError(
-        "Password should contain atleast 6 characters of atleast lowercase, uppercase and numeric integer"
-      );
+    if (email.length === 0) return setError("Please Enter Email Id");
+    if (password.length === 0) return setError("Please Enter Password");
 
     setError("");
     dispatch(toggleAuthLoader("TRUE"));

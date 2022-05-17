@@ -12,14 +12,8 @@ const PrivateRoute = ({ allowdRoles }) => {
     accessToken = JSON.parse(sessionStorage.getItem("disecto__token"));
   }
 
-  if (
-    userInfo.hasOwnProperty("roles") &&
-    sessionStorage.getItem("current__user__roles") !== "undefined"
-  ) {
-    userInfo = JSON.parse(sessionStorage.getItem("disecto__token"));
-  }
-
-  return userInfo?.roles?.find((role) => allowdRoles?.includes(role)) ? (
+  return accessToken &&
+    userInfo?.roles?.find((role) => allowdRoles?.includes(role)) ? (
     <Outlet />
   ) : userInfo?.email ? (
     <Navigate to="/unauthorized" state={{ from: location }} replace />

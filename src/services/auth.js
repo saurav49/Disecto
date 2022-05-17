@@ -19,6 +19,7 @@ const handleUserSignUp = async (
     return response;
   } catch (error) {
     console.log({ error });
+    alert(error.response.data.errorMessage);
   }
 };
 
@@ -28,6 +29,7 @@ const handleUserLogin = async (email, password) => {
     return response;
   } catch (error) {
     console.log({ error });
+    alert(error.response.data.errorMessage);
   }
 };
 

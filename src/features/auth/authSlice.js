@@ -82,7 +82,7 @@ export const authSlice = createSlice({
         );
         sessionStorage.setItem(
           "disecto__token",
-          JSON.stringify(action.payload.savedUser.token)
+          JSON.stringify(action.payload.token)
         );
         alert("Sign up successful");
       }
@@ -112,7 +112,7 @@ export const authSlice = createSlice({
         );
         sessionStorage.setItem(
           "disecto__token",
-          JSON.stringify(action.payload.savedUser.token)
+          JSON.stringify(action.payload.token)
         );
         alert("Login successful");
       }
