@@ -54,7 +54,7 @@ function App() {
                 onClick={() => handleAuthBtnClick("ADMIN")}
                 className="mr-4 bg-blue-500 hover:bg-blue-400 text-white font-bold py-4 px-8 border-b-4 border-blue-700 hover:border-blue-500 focus:border-b-0 rounded"
               >
-                <span>Login as Admin</span>
+                <span>Login as Admin(Testing)</span>
               </button>
               <button
                 onClick={() => handleAuthBtnClick("USER")}
