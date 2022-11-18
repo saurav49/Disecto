@@ -61,7 +61,7 @@ function App() {
                 onClick={() => handleAuthBtnClick("USER")}
                 className="bg-slate-500 hover:bg-slate-400 text-white font-bold py-4 px-8 border-b-4 border-slate-700 hover:border-slate-500 focus:border-b-0 rounded"
               >
-                <span>Login as user</span>
+                <span>Login as agent</span>
               </button>
             </div>
           }
