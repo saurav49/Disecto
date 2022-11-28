@@ -33,7 +33,6 @@ function App() {
   }, []);
 
   const handleAuthBtnClick = (role) => {
-    console.log({ log });
     dispatch(handleSelectedRole(role));
     navigate("/login");
     // eslint-disable-next-line react-hooks/exhaustive-deps
