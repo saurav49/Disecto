@@ -19,7 +19,7 @@ const Signup = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [err, setError] = useState("");
   const { userSelectedRole, authLoader } = useSelector((state) => state.auth);
-
+  console.log("change here");
   const handleSubmit = (e) => {
     e.preventDefault();
 
