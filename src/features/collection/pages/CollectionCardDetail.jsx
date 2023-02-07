@@ -79,7 +79,7 @@ const CollectionCardDetail = () => {
       })
     );
   };
-
+  console.log("change there");
   return (
     <div className=" flex flex-col items-start justify-between p-5 mt-10">
       {showModal && (

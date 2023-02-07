@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const CollectionCard = ({ id, name, description, images }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  console.log("change there");
   const handleCardClick = () => {
     dispatch(
       selectedCollection({
